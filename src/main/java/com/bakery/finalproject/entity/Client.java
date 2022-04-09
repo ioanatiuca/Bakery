@@ -1,10 +1,7 @@
 package com.bakery.finalproject.entity;
 
 import com.bakery.finalproject.enums.Country;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import org.springframework.stereotype.Component;
 
 import javax.persistence.Entity;
@@ -14,12 +11,12 @@ import javax.persistence.OneToMany;
 import java.util.List;
 import java.util.UUID;
 
-@Component
 @Entity
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder
 public class Client {
     @Id
     @GeneratedValue

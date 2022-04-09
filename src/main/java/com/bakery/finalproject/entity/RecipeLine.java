@@ -1,13 +1,26 @@
 package com.bakery.finalproject.entity;
 
-import com.bakery.finalproject.enums.Ingredients;
-import org.springframework.stereotype.Component;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.ManyToMany;
+import java.util.List;
 import java.util.UUID;
 
-@Component
+@Entity
+@Getter
+@Setter
+@NoArgsConstructor
 public class RecipeLine {
+    @Id
+    @GeneratedValue
     private UUID id;
-    private Ingredients ingredientName;
+    private String ingredientName;
     private Integer quantity;
+    @ManyToMany
+    private List<Recipe> recipes;
 }

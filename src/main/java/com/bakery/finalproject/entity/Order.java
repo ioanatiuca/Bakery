@@ -8,16 +8,13 @@ import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
 @Entity
-@Component
 @Getter
 @Setter
 @AllArgsConstructor
@@ -26,13 +23,13 @@ public class Order {
     @Id
     @GeneratedValue
     private UUID id;
-    private Integer orderNumber;
+    private Integer orderNumber; //random, 6 cifre
     private Integer discount;
     private OrderStatus orderStatus;
-    private Date orderDate;
-    private Date deliveryDate;
-    //@Autowired
-  //  private List<OrderLine> shoppingCart;
+    private LocalDate orderDate;
+    private LocalDate deliveryDate;
+    @ManyToMany
+    private List<OrderLine> shoppingCart;
     @ManyToOne
     private Client client;
 

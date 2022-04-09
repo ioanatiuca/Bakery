@@ -7,15 +7,11 @@ import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.OneToOne;
+import javax.persistence.*;
 import java.util.List;
 import java.util.UUID;
 
 @Entity
-@Component
 @Getter
 @Setter
 @AllArgsConstructor
@@ -25,8 +21,8 @@ public class Recipe {
     @GeneratedValue
     private UUID id;
     private String name;
-    //@Autowired
-  //  private List<RecipeLine> recipe;
+    @ManyToMany
+    private List<RecipeLine> recipe;
     @OneToOne
     private Product product;
 }

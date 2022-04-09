@@ -1,5 +1,6 @@
 package com.bakery.finalproject.entity;
 
+import com.bakery.finalproject.enums.ProductCategory;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -10,7 +11,6 @@ import javax.persistence.*;
 import java.util.List;
 import java.util.UUID;
 
-@Component
 @Entity
 @Getter
 @Setter
@@ -20,6 +20,7 @@ public class Product {
     @Id
     @GeneratedValue
     private UUID id;
+    private ProductCategory category;
     private String name;
     @ManyToMany
     private List<Ingredient> ingredientList;
