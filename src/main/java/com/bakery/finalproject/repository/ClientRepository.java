@@ -8,7 +8,7 @@ import org.springframework.data.repository.query.Param;
 import java.util.Optional;
 import java.util.UUID;
 
-public interface ClientRepository extends JpaRepository<Client, UUID>{
+public interface ClientRepository extends JpaRepository<Client, Integer>{
     @Query("Select c from Client c where c.email = :email")
     Optional<Client> findByEmail(@Param("email") String email);
 }

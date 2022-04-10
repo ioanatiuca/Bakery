@@ -1,6 +1,7 @@
 package com.bakery.finalproject.mapper;
 
 import com.bakery.finalproject.entity.Client;
+import com.bakery.finalproject.enums.Country;
 import com.bakery.finalproject.modelDTO.ClientDTO;
 import com.bakery.finalproject.repository.ClientRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +16,7 @@ public class ClientMapper implements Mapper<Client, ClientDTO> {
 
     @Override
     public ClientDTO entityToDTO(Client entity) {
+        Country country = entity.getCountry();
         return ClientDTO.builder()
                 .firstName(entity.getFirstName())
                 .lastName(entity.getLastName())
@@ -23,7 +25,7 @@ public class ClientMapper implements Mapper<Client, ClientDTO> {
                 .address(entity.getAddress())
                 .city(entity.getCity())
                 .postalCode(entity.getPostalCode())
-                .country(entity.getCountry())
+                .country(country.name())
                 .build();
     }
 
@@ -31,13 +33,14 @@ public class ClientMapper implements Mapper<Client, ClientDTO> {
     public Client DTOToEntity(ClientDTO dto) {
         String email = dto.getEmail();
         Client client = clientRepository.findByEmail(email).orElse(new Client());
+        String country = dto.getCountry();
         client.setFirstName(dto.getFirstName());
         client.setLastName(dto.getLastName());
         client.setEmail(dto.getEmail());
         client.setPhoneNo(dto.getPhoneNo());
         client.setAddress(dto.getAddress());
         client.setCity(dto.getCity());
-        client.setCountry(dto.getCountry());
+        client.setCountry(Country.valueOf(country.toUpperCase()));
         return client;
     }
 }

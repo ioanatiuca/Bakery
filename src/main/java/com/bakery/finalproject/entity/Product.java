@@ -19,10 +19,14 @@ import java.util.UUID;
 public class Product {
     @Id
     @GeneratedValue
-    private UUID id;
+    @Column(name="product_id")
+    private Integer productId;
     private ProductCategory category;
     private String name;
     @ManyToMany
+    @JoinTable (name = "product_ingredient",
+    joinColumns = @JoinColumn(name = "product_id"),
+    inverseJoinColumns = @JoinColumn(name="ingredient_id"))
     private List<Ingredient> ingredientList;
     @OneToOne
     private Recipe recipe;

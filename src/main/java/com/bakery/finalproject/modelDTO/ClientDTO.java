@@ -7,7 +7,6 @@ import lombok.Getter;
 import lombok.Setter;
 import org.springframework.stereotype.Component;
 
-@Component
 @Builder
 @Getter
 @Setter
@@ -20,5 +19,5 @@ public class ClientDTO {
     private String address;
     private String city;
     private String postalCode;
-    private Country country;
+    private String country;
 }

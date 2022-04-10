@@ -8,7 +8,7 @@ import org.springframework.data.repository.query.Param;
 import java.util.Optional;
 import java.util.UUID;
 
-public interface OrderRepository extends JpaRepository<Order, UUID> {
+public interface OrderRepository extends JpaRepository<Order, Integer> {
     @Query("Select o from Order o where o.orderNumber = :on")
     public Optional<Order> findByOrderNumber(@Param("on") Integer orderNumber);
 }

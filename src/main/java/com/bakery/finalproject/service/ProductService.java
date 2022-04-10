@@ -23,7 +23,7 @@ public class ProductService {
 
     public void deleteProduct (ProductDTO productDTO) {
         Product product = productMapper.DTOToEntity(productDTO);
-        Product foundProduct = productRepository.findById(product.getId()).orElseThrow(()-> new NotFoundException("Sorry, the product was not found in the database."));
+        Product foundProduct = productRepository.findById(product.getProductId()).orElseThrow(()-> new NotFoundException("Sorry, the product was not found in the database."));
         productRepository.delete(foundProduct);
     }
 }

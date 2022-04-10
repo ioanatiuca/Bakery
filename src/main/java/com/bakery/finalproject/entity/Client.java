@@ -4,10 +4,7 @@ import com.bakery.finalproject.enums.Country;
 import lombok.*;
 import org.springframework.stereotype.Component;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 import java.util.List;
 import java.util.UUID;
 
@@ -20,7 +17,8 @@ import java.util.UUID;
 public class Client {
     @Id
     @GeneratedValue
-    private UUID id;
+    @Column(name="client_id")
+    private Integer clientId;
     private String firstName;
     private String lastName;
     private String email;
@@ -29,6 +27,6 @@ public class Client {
     private String city;
     private String postalCode;
     private Country country;
-    @OneToMany
+    @OneToMany (mappedBy = "client")
     private List<Order> orderList;
 }

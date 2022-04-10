@@ -8,7 +8,7 @@ import org.springframework.data.repository.query.Param;
 import java.util.Optional;
 import java.util.UUID;
 
-public interface ProductRepository extends JpaRepository<Product, UUID> {
+public interface ProductRepository extends JpaRepository<Product, Integer> {
     @Query("Select p from Product p where p.name = :name")
     public Optional<Product> findByName(@Param("name") String name);
 }

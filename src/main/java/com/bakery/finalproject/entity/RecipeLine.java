@@ -4,10 +4,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.ManyToMany;
+import javax.persistence.*;
 import java.util.List;
 import java.util.UUID;
 
@@ -18,9 +15,10 @@ import java.util.UUID;
 public class RecipeLine {
     @Id
     @GeneratedValue
-    private UUID id;
+    private Integer recipeLineId;
     private String ingredientName;
     private Integer quantity;
-    @ManyToMany
-    private List<Recipe> recipes;
+    @ManyToOne
+    @JoinColumn(name="recipe_id")
+    private Recipe recipe;
 }

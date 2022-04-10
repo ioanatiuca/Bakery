@@ -19,18 +19,21 @@ import java.util.UUID;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@Table(name = "orders")
 public class Order {
     @Id
     @GeneratedValue
-    private UUID id;
+    @Column(name = "order_id")
+    private Integer orderId;
     private Integer orderNumber; //random, 6 cifre
     private Integer discount;
     private OrderStatus orderStatus;
     private LocalDate orderDate;
     private LocalDate deliveryDate;
-    @ManyToMany
+    @OneToMany(mappedBy = "order")
     private List<OrderLine> shoppingCart;
     @ManyToOne
+    @JoinColumn (name="client_id")
     private Client client;
 
 }

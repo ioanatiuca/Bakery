@@ -10,14 +10,16 @@ import java.util.UUID;
 @Getter
 @Setter
 @NoArgsConstructor
+@Table(name="order_line")
 public class OrderLine {
     @Id
     @GeneratedValue
-    private UUID id;
+    private Integer orderLineId;
     @ManyToOne
     private Product product;
     private Integer quantity;
     private Double totalPrice;
-    @ManyToMany
-    private List<Order> orders;
+    @ManyToOne
+    @JoinColumn (name="order_id")
+    private Order order;
 }

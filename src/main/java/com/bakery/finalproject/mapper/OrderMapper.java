@@ -4,7 +4,9 @@ import com.bakery.finalproject.entity.Order;
 import com.bakery.finalproject.modelDTO.OrderDTO;
 import com.bakery.finalproject.repository.OrderRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
+@Component
 public class OrderMapper implements Mapper<Order, OrderDTO> {
     @Autowired
     private OrderRepository orderRepository;

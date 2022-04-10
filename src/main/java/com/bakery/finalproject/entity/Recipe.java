@@ -19,10 +19,11 @@ import java.util.UUID;
 public class Recipe {
     @Id
     @GeneratedValue
-    private UUID id;
+    @Column(name="recipe_id")
+    private Integer recipeId;
     private String name;
-    @ManyToMany
-    private List<RecipeLine> recipe;
+    @OneToMany(mappedBy = "recipe")
+    private List<RecipeLine> recipeLines;
     @OneToOne
     private Product product;
 }
