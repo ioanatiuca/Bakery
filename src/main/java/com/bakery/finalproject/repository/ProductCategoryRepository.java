@@ -8,12 +8,8 @@ import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
-public interface ProductRepository extends JpaRepository<Product, Integer> {
-    @Query("Select p from Product p where p.name = :name")
-    public Optional<Product> findByName(@Param("name") String name);
-
-    @Query("Select p.category from Product p group by p.category")
-    public List<ProductCategory> getAllProductCategories ();
+public interface ProductCategoryRepository extends JpaRepository<ProductCategory, UUID> {
 
 }

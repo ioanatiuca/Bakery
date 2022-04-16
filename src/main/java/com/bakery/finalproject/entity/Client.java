@@ -19,13 +19,20 @@ public class Client {
     @GeneratedValue
     @Column(name="client_id")
     private Integer clientId;
+    @Column(nullable = false)
     private String firstName;
+    @Column(nullable = false)
     private String lastName;
+    @Column(nullable = false, unique = true)
     private String email;
+    @Column(nullable = false)
     private String phoneNo;
+    @Column(nullable = false)
     private String address;
+    @Column(nullable = false)
     private String city;
     private String postalCode;
+    @Column(nullable = false)
     private Country country;
     @OneToMany (mappedBy = "client")
     private List<Order> orderList;

@@ -1,8 +1,7 @@
 package com.bakery.finalproject.entity;
 
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
+
 import javax.persistence.*;
 import java.util.List;
 import java.util.UUID;
@@ -10,6 +9,8 @@ import java.util.UUID;
 @Getter
 @Setter
 @NoArgsConstructor
+@AllArgsConstructor
+@Builder
 @Table(name="order_line")
 public class OrderLine {
     @Id

@@ -9,30 +9,33 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
-@CrossOrigin(origins = "http://localhost:4200")
-@RequestMapping("/api/bakery")
-public class Controller {
+//@CrossOrigin(origins = "http://localhost:4200/client")
+@RequestMapping("/api/bakery/client")
+public class ClientController {
     @Autowired
     private ClientService clientService;
-    @Autowired
-    private ProductService productService;
-    @Autowired
-    private OrderService orderService;
 
-    @PostMapping("/client")
+    @PostMapping
     public ResponseEntity<Client> addNewClient (@RequestBody ClientDTO clientDTO) {
         Client client = clientService.saveNewClient(clientDTO);
         return ResponseEntity.ok(client);
     }
-    @DeleteMapping("/client/{email}")
+    @DeleteMapping("/{email}")
     public void deleteClient (@RequestBody ClientDTO clientDTO, @PathVariable("email") String email) {
         clientService.deleteClientByEmail(clientDTO);
     }
-    @PostMapping("/client/{email}")
+    @PostMapping("/{email}")
     public ResponseEntity<Client> updateClientByEmail (@RequestBody ClientDTO clientDTO, @PathVariable("email") String email) {
         Client client = clientService.updateClientDetailsByEmail(clientDTO);
         return ResponseEntity.ok(client);
+    }
+    @GetMapping
+    public ResponseEntity<List<Client>> getAllClients () {
+        List<Client> allClients = clientService.getAllClients();
+        return ResponseEntity.ok(allClients);
     }
 
 }

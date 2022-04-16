@@ -15,9 +15,7 @@ import java.util.List;
 @Builder
 @AllArgsConstructor
 public class OrderDTO {
-    private Integer orderNumber;
-    private Integer discount;
-    private OrderStatus orderStatus;
+    private Integer orderId;
     private LocalDate orderDate;
     private LocalDate deliveryDate;
     private List<OrderLineDTO> shoppingCartDTO;

@@ -6,6 +6,8 @@ import com.bakery.finalproject.repository.OrderRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.Random;
+
 @Component
 public class OrderMapper implements Mapper<Order, OrderDTO> {
     @Autowired
@@ -13,20 +15,26 @@ public class OrderMapper implements Mapper<Order, OrderDTO> {
     @Override
     public OrderDTO entityToDTO(Order entity) {
         return OrderDTO.builder()
-                .discount(entity.getDiscount())
+                .orderId(entity.getOrderId())
+                .orderDate(entity.getOrderDate())
                 .deliveryDate(entity.getDeliveryDate())
                 .build();
     }
 
     @Override
     public Order DTOToEntity(OrderDTO dto) {
-        Order order = orderRepository.findByOrderNumber(dto.getOrderNumber()).orElse(new Order());
+        Order order = orderRepository.findByOrderNumber(dto.getOrderId()).orElse(new Order());
         order.setOrderDate(dto.getOrderDate());
         order.setDeliveryDate(dto.getDeliveryDate());
-        order.setOrderStatus(dto.getOrderStatus());
-        order.setOrderNumber(dto.getOrderNumber());
-        order.setDiscount(dto.getDiscount());
+        order.setOrderNumber(generateOrderNumber());
+        order.setDiscount(0);
        // order.setShoppingCart(dto.getShoppingCartDTO());
         return order;
+    }
+
+    private Integer generateOrderNumber() {
+        Random number = new Random();
+        Integer orderNumber = number.nextInt(100000,999999);
+        return orderNumber;
     }
 }

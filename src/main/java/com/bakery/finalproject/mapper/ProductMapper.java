@@ -14,6 +14,7 @@ public class ProductMapper implements Mapper<Product, ProductDTO> {
     @Override
     public ProductDTO entityToDTO(Product entity) {
         return ProductDTO.builder()
+                .productId(entity.getProductId())
                 .category(entity.getCategory())
                 .name(entity.getName())
                 .build();
@@ -22,6 +23,7 @@ public class ProductMapper implements Mapper<Product, ProductDTO> {
     @Override
     public Product DTOToEntity(ProductDTO dto) {
         Product product = productRepository.findByName(dto.getName()).orElse(new Product());
+        product.setProductId(dto.getProductId());
         product.setCategory(dto.getCategory());
         product.setName(dto.getName());
         return product;

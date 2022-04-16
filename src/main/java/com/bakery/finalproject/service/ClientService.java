@@ -8,6 +8,8 @@ import com.bakery.finalproject.repository.ClientRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class ClientService {
     @Autowired
@@ -32,6 +34,10 @@ public class ClientService {
         Client client = clientRepository.findByEmail(email)
                 .orElseThrow(() -> new NotFoundException("Sorry, the email you entered is not found in our database. Please try again."));
         clientRepository.delete(client);
+    }
+
+    public List<Client> getAllClients () {
+        return clientRepository.findAll();
     }
 
 }

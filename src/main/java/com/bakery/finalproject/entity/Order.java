@@ -25,10 +25,14 @@ public class Order {
     @GeneratedValue
     @Column(name = "order_id")
     private Integer orderId;
+//    @Column(nullable = false, unique = true)
     private Integer orderNumber; //random, 6 cifre
     private Integer discount;
+//    @Column(nullable = false)
     private OrderStatus orderStatus;
+//    @Column(nullable = false)
     private LocalDate orderDate;
+//    @Column(nullable = false)
     private LocalDate deliveryDate;
     @OneToMany(mappedBy = "order")
     private List<OrderLine> shoppingCart;

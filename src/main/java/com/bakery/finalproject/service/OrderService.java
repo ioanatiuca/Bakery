@@ -9,8 +9,10 @@ import com.bakery.finalproject.repository.OrderRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.Instant;
 import java.time.LocalDate;
 import java.util.Date;
+import java.util.List;
 import java.util.Random;
 
 @Service
@@ -21,22 +23,21 @@ public class OrderService {
     private OrderMapper orderMapper;
 
     public Order addNewOrder (OrderDTO orderDTO) {
+//        addNewOrderLineToOrder(orderLine);
         Order order = orderMapper.DTOToEntity(orderDTO);
-        Integer orderNumber = generateOrderNumber();
-        order.setOrderNumber(orderNumber);
+        order.setOrderStatus(OrderStatus.APPROVED);
         order.setOrderDate(LocalDate.now());
         return orderRepository.save(order);
     }
 
-    private Integer generateOrderNumber() {
-        Random number = new Random();
-        Integer orderNumber = number.nextInt(100000,999999);
-        return orderNumber;
+    public List<Order> getAllOrders () {
+        return orderRepository.findAll();
     }
-
     public void cancelOrderByNumber (OrderDTO orderDTO) {
-        Order order = orderRepository.findByOrderNumber(orderDTO.getOrderNumber())
+        Order order = orderMapper.DTOToEntity(orderDTO);
+        Order foundOrder = orderRepository.findByOrderNumber(order.getOrderNumber())
                 .orElseThrow(() -> new NotFoundException("Sorry, the order with this number was not found in the database."));
         order.setOrderStatus(OrderStatus.CANCELED);
     }
+
 }

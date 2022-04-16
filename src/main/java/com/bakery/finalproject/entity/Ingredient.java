@@ -19,9 +19,11 @@ public class Ingredient {
     @GeneratedValue
     @Column(name="ingredient_id")
     private Integer ingredientId;
+    @Column(nullable = false)
     private String ingredientName;
     private Double caloriesPer100g;
     private Boolean isAllergen;
+    @Column(nullable = false)
     private Boolean pricePerUnit;
     @ManyToMany(mappedBy = "ingredientList")
     private List<Product> productList;
