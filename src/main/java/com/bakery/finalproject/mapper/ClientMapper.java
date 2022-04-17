@@ -5,6 +5,7 @@ import com.bakery.finalproject.enums.Country;
 import com.bakery.finalproject.modelDTO.ClientDTO;
 import com.bakery.finalproject.repository.ClientRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import java.util.Optional;
@@ -13,6 +14,8 @@ import java.util.Optional;
 public class ClientMapper implements Mapper<Client, ClientDTO> {
     @Autowired
     private ClientRepository clientRepository;
+    @Autowired
+    private BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @Override
     public ClientDTO entityToDTO(Client entity) {
@@ -21,6 +24,7 @@ public class ClientMapper implements Mapper<Client, ClientDTO> {
                 .firstName(entity.getFirstName())
                 .lastName(entity.getLastName())
                 .email(entity.getEmail())
+                .password(entity.getPassword())
                 .phoneNo(entity.getPhoneNo())
                 .address(entity.getAddress())
                 .city(entity.getCity())
@@ -37,6 +41,7 @@ public class ClientMapper implements Mapper<Client, ClientDTO> {
         client.setFirstName(dto.getFirstName());
         client.setLastName(dto.getLastName());
         client.setEmail(dto.getEmail());
+        client.setPassword(bCryptPasswordEncoder.encode(dto.getPassword()));
         client.setPhoneNo(dto.getPhoneNo());
         client.setAddress(dto.getAddress());
         client.setCity(dto.getCity());

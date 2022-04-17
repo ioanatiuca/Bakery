@@ -1,5 +1,6 @@
 package com.bakery.finalproject.entity;
 
+import com.bakery.finalproject.enums.ApplicationRole;
 import com.bakery.finalproject.enums.Country;
 import lombok.*;
 import org.springframework.stereotype.Component;
@@ -26,6 +27,8 @@ public class Client {
     @Column(nullable = false, unique = true)
     private String email;
     @Column(nullable = false)
+    private String password;
+    @Column(nullable = false)
     private String phoneNo;
     @Column(nullable = false)
     private String address;
@@ -36,4 +39,6 @@ public class Client {
     private Country country;
     @OneToMany (mappedBy = "client")
     private List<Order> orderList;
+    private ApplicationRole role;
+
 }

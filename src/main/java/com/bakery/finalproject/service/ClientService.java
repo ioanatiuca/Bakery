@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ClientService {
@@ -40,4 +41,8 @@ public class ClientService {
         return clientRepository.findAll();
     }
 
+    public Client getClientByEmail(String email) {
+        Client client = clientRepository.findByEmail(email).orElseThrow(() -> new NotFoundException("Sorry, the email has not been found in our database. Do you want to register? "));
+        return client;
+    }
 }

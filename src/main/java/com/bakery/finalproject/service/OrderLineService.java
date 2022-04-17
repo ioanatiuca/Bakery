@@ -3,6 +3,7 @@ package com.bakery.finalproject.service;
 import com.bakery.finalproject.entity.OrderLine;
 import com.bakery.finalproject.mapper.OrderLineMapper;
 import com.bakery.finalproject.modelDTO.OrderLineDTO;
+import com.bakery.finalproject.modelDTO.ProductDTO;
 import com.bakery.finalproject.repository.OrderLineRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -16,6 +17,8 @@ public class OrderLineService {
     private OrderLineRepository orderLineRepository;
     @Autowired
     private OrderLineMapper orderLineMapper;
+    @Autowired
+    private ProductService productService;
 
     public OrderLine addNewOrderLine (OrderLineDTO orderLineDTO) {
         OrderLine orderLine = orderLineMapper.DTOToEntity(orderLineDTO);
@@ -24,5 +27,10 @@ public class OrderLineService {
 
     public List<OrderLine> getAllOrderLines() {
         return orderLineRepository.findAll();
+    }
+
+    public OrderLine addProductToOrderLine (ProductDTO productDTO) {
+
+        return null;
     }
 }
