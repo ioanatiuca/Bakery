@@ -1,6 +1,7 @@
 package com.bakery.finalproject.controller;
 
 import com.bakery.finalproject.entity.Client;
+import com.bakery.finalproject.entity.User;
 import com.bakery.finalproject.modelDTO.ClientDTO;
 import com.bakery.finalproject.service.ClientService;
 import com.bakery.finalproject.service.OrderService;
@@ -14,38 +15,42 @@ import java.util.List;
 
 @RestController
 @CrossOrigin(origins = "http://localhost:4200/client")
-@RequestMapping("/api/bakery")
+@RequestMapping("/api/bakery/client")
 public class ClientController {
     @Autowired
     private ClientService clientService;
 
-    @PostMapping("/client")
+    @PostMapping
     public ResponseEntity<Client> addNewClient (@RequestBody ClientDTO clientDTO) {
         Client client = clientService.saveNewClient(clientDTO);
         return ResponseEntity.ok(client);
     }
-    @GetMapping("/login")
-    public Principal loginClient (Principal client) {
-        return client;
+
+    @GetMapping(produces = "application/json")
+    @RequestMapping({ "/validateLogin" })
+    public User validateLogin() {
+        return new User("Successfully authenticated");
+    }
+
+    @GetMapping(produces = "application/json")
+    public ResponseEntity<List<Client>> getAllClients () {
+        List<Client> allClients = clientService.getAllClients();
+        return ResponseEntity.ok(allClients);
     }
 //    public ResponseEntity<Client> loginClient (@RequestBody ClientDTO clientDTO) {
 //        Client client = clientService.getClientByEmail(clientDTO.getEmail());
 //        return ResponseEntity.ok(client);
 //    }
 
-    @DeleteMapping("/client/{email}")
+    @DeleteMapping("/{email}")
     public void deleteClient (@RequestBody ClientDTO clientDTO, @PathVariable("email") String email) {
         clientService.deleteClientByEmail(clientDTO);
     }
-    @PostMapping("/client/{email}")
+    @PostMapping("/{email}")
     public ResponseEntity<Client> updateClientByEmail (@RequestBody ClientDTO clientDTO, @PathVariable("email") String email) {
         Client client = clientService.updateClientDetailsByEmail(clientDTO);
         return ResponseEntity.ok(client);
     }
-    @GetMapping("/client")
-    public ResponseEntity<List<Client>> getAllClients () {
-        List<Client> allClients = clientService.getAllClients();
-        return ResponseEntity.ok(allClients);
-    }
+
 
 }

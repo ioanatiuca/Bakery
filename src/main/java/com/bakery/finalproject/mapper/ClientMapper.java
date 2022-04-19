@@ -14,8 +14,8 @@ import java.util.Optional;
 public class ClientMapper implements Mapper<Client, ClientDTO> {
     @Autowired
     private ClientRepository clientRepository;
-    @Autowired
-    private BCryptPasswordEncoder bCryptPasswordEncoder;
+//    @Autowired
+//    private BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @Override
     public ClientDTO entityToDTO(Client entity) {
@@ -41,7 +41,7 @@ public class ClientMapper implements Mapper<Client, ClientDTO> {
         client.setFirstName(dto.getFirstName());
         client.setLastName(dto.getLastName());
         client.setEmail(dto.getEmail());
-        client.setPassword(bCryptPasswordEncoder.encode(dto.getPassword()));
+        client.setPassword(dto.getPassword());
         client.setPhoneNo(dto.getPhoneNo());
         client.setAddress(dto.getAddress());
         client.setCity(dto.getCity());
