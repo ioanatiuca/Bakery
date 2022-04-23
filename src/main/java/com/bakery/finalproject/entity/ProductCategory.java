@@ -17,22 +17,17 @@ import java.util.UUID;
 @AllArgsConstructor
 @NoArgsConstructor
 public class ProductCategory {
-//    BAIGLI,
-//    LAYERED_CAKE,
-//    CHEESE_CAKE,
-//    MUFFINS_AND_CUPCAKES,
-//    OTHER
-
     @Id
     @GeneratedValue()
     @Column(name = "category_id")
-    Integer id;
-
+    private Integer id;
     @Column
-    String name;
-
+    private String name;
     @Column
-    String description;
+    private String description;
+    private String photoUrl;
+
+
 
     public String getName() {
         return name;

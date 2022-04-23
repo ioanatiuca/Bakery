@@ -2,6 +2,7 @@ package com.bakery.finalproject.repository;
 
 import com.bakery.finalproject.entity.Product;
 import com.bakery.finalproject.entity.ProductCategory;
+import com.bakery.finalproject.modelDTO.ProductCategoryDTO;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -16,4 +17,6 @@ public interface ProductRepository extends JpaRepository<Product, Integer> {
     @Query("Select p.category from Product p group by p.category")
     public List<ProductCategory> getAllProductCategories ();
 
+    @Query("Select p.name from Product p where p.category = :category group by p.category")
+    public List<Product> findAllByCategoryName(@Param("category") ProductCategoryDTO productCategoryDTO);
 }

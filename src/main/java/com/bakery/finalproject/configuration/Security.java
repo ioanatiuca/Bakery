@@ -1,6 +1,8 @@
 package com.bakery.finalproject.configuration;
 
+import com.bakery.finalproject.service.ClientService;
 import com.bakery.finalproject.service.UserDetailsSecurityService;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -10,46 +12,41 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 @Configuration
-//@EnableWebSecurity
+@EnableWebSecurity
+@AllArgsConstructor
 public class Security extends WebSecurityConfigurerAdapter {
-    private final UserDetailsSecurityService userDetailsSecurityService;
 
-    public Security(UserDetailsSecurityService userDetailsSecurityService) {
-        this.userDetailsSecurityService = userDetailsSecurityService;
-    }
+    private final ClientService clientService;
+    private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
-    @Autowired
-    protected void configureGlobal (AuthenticationManagerBuilder auth) throws Exception {
-        auth
-                .inMemoryAuthentication()
-                .withUser("admin")
-                .password("{noop}parola1234")
-                .roles("ADMIN");
-//        auth.authenticationProvider(authenticationProvider());
-
-    }
     @Override
-    protected void configure (HttpSecurity httpSecurity) throws Exception {
-        httpSecurity
-                .csrf().disable().cors().disable()
+    protected void configure(HttpSecurity http) throws Exception {
+        http
+                .csrf().disable()
                 .authorizeRequests()
-                .antMatchers("/**").permitAll().anyRequest().authenticated()
-                .and().httpBasic();
+                .antMatchers("/api/bakery/client/registration/**")
+                .permitAll()
+                .anyRequest()
+                .authenticated()
+                .and()
+                .formLogin();
     }
 
-//    @Bean
-//    public BCryptPasswordEncoder bCryptPasswordEncoder(){
-//        return new BCryptPasswordEncoder();
-//    }
-//
-//    @Bean
-//    public DaoAuthenticationProvider authenticationProvider(){
-//        DaoAuthenticationProvider auth= new DaoAuthenticationProvider();
-//        auth.setUserDetailsService(userDetailsSecurityService);
-//        auth.setPasswordEncoder(bCryptPasswordEncoder());
-//        return auth;
-//    }
+    @Override
+    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+        auth.authenticationProvider(daoAuthenticationProvider());
+    }
+
+
+    @Bean
+    public DaoAuthenticationProvider daoAuthenticationProvider(){
+        DaoAuthenticationProvider provider= new DaoAuthenticationProvider();
+        provider.setUserDetailsService(clientService);
+        provider.setPasswordEncoder(bCryptPasswordEncoder);
+        return provider;
+    }
 }

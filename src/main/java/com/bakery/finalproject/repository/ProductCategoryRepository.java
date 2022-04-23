@@ -12,4 +12,6 @@ import java.util.UUID;
 
 public interface ProductCategoryRepository extends JpaRepository<ProductCategory, UUID> {
 
+    @Query("Select c from ProductCategory c where c.name=:name")
+    public Optional<ProductCategory> findByName(@Param("name") String name);
 }

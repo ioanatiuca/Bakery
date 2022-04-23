@@ -2,6 +2,7 @@ package com.bakery.finalproject.controller;
 
 import com.bakery.finalproject.entity.Product;
 import com.bakery.finalproject.entity.ProductCategory;
+import com.bakery.finalproject.modelDTO.ProductCategoryDTO;
 import com.bakery.finalproject.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -32,5 +33,11 @@ public class ProductController {
     public ResponseEntity<Product> getProductByName (@PathVariable("name") String name) {
         Product product = productService.getProductByName(name);
         return ResponseEntity.ok(product);
+    }
+    @GetMapping("/category/{name}")
+    @ResponseBody
+    public ResponseEntity<List<Product>> getAllProductsInACategory (@PathVariable("name") ProductCategoryDTO productCategoryDTO) {
+        List<Product> productList = productService.getAllProductsInACategory(productCategoryDTO);
+        return ResponseEntity.ok(productList);
     }
 }

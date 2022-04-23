@@ -11,4 +11,5 @@ public class ProductCategoryDTO {
     private Integer categoryId;
     private String name;
     private String description;
+    private String photoUrl;
 }

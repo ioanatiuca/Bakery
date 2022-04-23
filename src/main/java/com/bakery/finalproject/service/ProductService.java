@@ -4,6 +4,7 @@ import com.bakery.finalproject.entity.Product;
 import com.bakery.finalproject.entity.ProductCategory;
 import com.bakery.finalproject.exception.NotFoundException;
 import com.bakery.finalproject.mapper.ProductMapper;
+import com.bakery.finalproject.modelDTO.ProductCategoryDTO;
 import com.bakery.finalproject.modelDTO.ProductDTO;
 import com.bakery.finalproject.repository.ProductCategoryRepository;
 import com.bakery.finalproject.repository.ProductRepository;
@@ -36,6 +37,11 @@ public class ProductService {
 
     public List<Product> getAllProducts () {
         return productRepository.findAll();
+    }
+
+    public List<Product> getAllProductsInACategory (ProductCategoryDTO productCategoryDTO) {
+        List<Product> productList = productRepository.findAllByCategoryName(productCategoryDTO);
+        return productList;
     }
 
     public List<ProductCategory> getAllProductCategories () {

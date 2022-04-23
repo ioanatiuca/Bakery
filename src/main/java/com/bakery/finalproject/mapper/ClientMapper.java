@@ -1,6 +1,7 @@
 package com.bakery.finalproject.mapper;
 
 import com.bakery.finalproject.entity.Client;
+import com.bakery.finalproject.enums.ApplicationRole;
 import com.bakery.finalproject.enums.Country;
 import com.bakery.finalproject.modelDTO.ClientDTO;
 import com.bakery.finalproject.repository.ClientRepository;
@@ -37,15 +38,22 @@ public class ClientMapper implements Mapper<Client, ClientDTO> {
     public Client DTOToEntity(ClientDTO dto) {
         String email = dto.getEmail();
         Client client = clientRepository.findByEmail(email).orElse(new Client());
+        if (dto.getEmail().equals("ioanatiuca@yahoo.com")) {
+            client.setRole(ApplicationRole.ADMIN);
+        } else {
+            client.setRole(ApplicationRole.USER);
+        }
         String country = dto.getCountry();
         client.setFirstName(dto.getFirstName());
         client.setLastName(dto.getLastName());
-        client.setEmail(dto.getEmail());
+        client.setEmail(email);
         client.setPassword(dto.getPassword());
         client.setPhoneNo(dto.getPhoneNo());
         client.setAddress(dto.getAddress());
         client.setCity(dto.getCity());
         client.setCountry(Country.valueOf(country.toUpperCase()));
+        client.setEnabled(false);
+        client.setLocked(false);
         return client;
     }
 }
