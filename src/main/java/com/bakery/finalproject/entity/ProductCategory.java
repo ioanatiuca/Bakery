@@ -21,15 +21,7 @@ public class ProductCategory {
     @GeneratedValue()
     @Column(name = "category_id")
     private Integer id;
-    @Column
     private String name;
-    @Column
     private String description;
     private String photoUrl;
-
-
-
-    public String getName() {
-        return name;
-    }
 }

@@ -28,8 +28,9 @@ public class Security extends WebSecurityConfigurerAdapter {
         http
                 .csrf().disable()
                 .authorizeRequests()
-                .antMatchers("/api/bakery/client/registration/**")
-                .permitAll()
+                .antMatchers("/api/bakery/client/registration/**").permitAll()
+                .antMatchers("/api/bakery/product/**").permitAll()
+                .antMatchers("/api/bakery/home").permitAll()
                 .anyRequest()
                 .authenticated()
                 .and()
@@ -43,8 +44,8 @@ public class Security extends WebSecurityConfigurerAdapter {
 
 
     @Bean
-    public DaoAuthenticationProvider daoAuthenticationProvider(){
-        DaoAuthenticationProvider provider= new DaoAuthenticationProvider();
+    public DaoAuthenticationProvider daoAuthenticationProvider() {
+        DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
         provider.setUserDetailsService(clientService);
         provider.setPasswordEncoder(bCryptPasswordEncoder);
         return provider;

@@ -10,6 +10,7 @@ import com.bakery.finalproject.repository.ProductCategoryRepository;
 import com.bakery.finalproject.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.util.List;
 import java.util.Optional;
@@ -26,7 +27,13 @@ public class ProductService {
 
     public Product addOrUpdateProduct (ProductDTO productDTO) {
         Product product = productMapper.DTOToEntity(productDTO);
+        product.getCategory().setPhotoUrl(setCategoryPhotoUrl(product.getCategory().getId()));
         return productRepository.save(product);
+    }
+
+    private String setCategoryPhotoUrl(Integer categoryId) {
+        String[] imageNames =  {"cakes.jpg", "pastry.jpg", "muffins.jpg", "cookies.jpg"};
+        return ServletUriComponentsBuilder.fromCurrentContextPath().path("api/bakery/product/category/image/"+imageNames[categoryId-1]).toUriString();
     }
 
     public void deleteProduct (ProductDTO productDTO) {
@@ -39,8 +46,8 @@ public class ProductService {
         return productRepository.findAll();
     }
 
-    public List<Product> getAllProductsInACategory (ProductCategoryDTO productCategoryDTO) {
-        List<Product> productList = productRepository.findAllByCategoryName(productCategoryDTO);
+    public List<Product> getAllProductsInACategory (String productCategoryDTOname) {
+        List<Product> productList = productRepository.findAllByCategoryName(productCategoryDTOname);
         return productList;
     }
 

@@ -8,7 +8,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.List;
+
+import static org.springframework.http.MediaType.IMAGE_JPEG_VALUE;
+import static org.springframework.http.MediaType.IMAGE_PNG_VALUE;
 
 @RestController
 @CrossOrigin(origins = "http://localhost:4200")
@@ -36,8 +42,14 @@ public class ProductController {
     }
     @GetMapping("/category/{name}")
     @ResponseBody
-    public ResponseEntity<List<Product>> getAllProductsInACategory (@PathVariable("name") ProductCategoryDTO productCategoryDTO) {
-        List<Product> productList = productService.getAllProductsInACategory(productCategoryDTO);
+//    @RequestMapping(value = "/get-templates", method = RequestMethod.GET, consumes = "application/json")
+    public ResponseEntity<List<Product>> getAllProductsInACategory (@PathVariable("name") String productCategoryDTOname) {
+        List<Product> productList = productService.getAllProductsInACategory(productCategoryDTOname);
         return ResponseEntity.ok(productList);
+    }
+
+    @GetMapping(path="/category/image/{fileName}", produces = IMAGE_JPEG_VALUE)
+    public byte[] getCategoryImage (@PathVariable("fileName") String fileName) throws IOException {
+        return Files.readAllBytes(Paths.get(System.getProperty("user.home")+"/Downloads/Poze_SDA/"+fileName));
     }
 }
