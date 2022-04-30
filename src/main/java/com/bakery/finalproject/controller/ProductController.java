@@ -14,7 +14,6 @@ import java.nio.file.Paths;
 import java.util.List;
 
 import static org.springframework.http.MediaType.IMAGE_JPEG_VALUE;
-import static org.springframework.http.MediaType.IMAGE_PNG_VALUE;
 
 @RestController
 @CrossOrigin(origins = "http://localhost:4200")
@@ -42,7 +41,6 @@ public class ProductController {
     }
     @GetMapping("/category/{name}")
     @ResponseBody
-//    @RequestMapping(value = "/get-templates", method = RequestMethod.GET, consumes = "application/json")
     public ResponseEntity<List<Product>> getAllProductsInACategory (@PathVariable("name") String productCategoryDTOname) {
         List<Product> productList = productService.getAllProductsInACategory(productCategoryDTOname);
         return ResponseEntity.ok(productList);

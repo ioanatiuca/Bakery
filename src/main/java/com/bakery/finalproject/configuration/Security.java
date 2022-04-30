@@ -26,15 +26,16 @@ public class Security extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
-                .csrf().disable()
+                .csrf().disable().cors().disable()
                 .authorizeRequests()
                 .antMatchers("/api/bakery/client/registration/**").permitAll()
                 .antMatchers("/api/bakery/product/**").permitAll()
                 .antMatchers("/api/bakery/home").permitAll()
+                .antMatchers("/api/bakery/client/**").permitAll()
                 .anyRequest()
                 .authenticated()
                 .and()
-                .formLogin();
+                .httpBasic();
     }
 
     @Override

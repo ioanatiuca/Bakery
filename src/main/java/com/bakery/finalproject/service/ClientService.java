@@ -59,6 +59,17 @@ public class ClientService implements UserDetailsService {
         return token;
     }
 
+    @Override
+    public UserDetails loadUserByUsername(String email) throws NotFoundException {
+        Client client = clientRepository.findByEmail(email).orElseThrow(() -> new NotFoundException("Sorry, the email has not been found in our database. Please register first. "));
+        return client;
+    }
+
+    public UserDetails loadUserByUsernameAndPassword(String email, String password) throws NotFoundException {
+        Client client = clientRepository.findByEmailAndPassword(email,password).orElseThrow(() -> new NotFoundException("Sorry, the email has not been found in our database. Please register first. "));
+        return client;
+    }
+
     private String buildEmail(String name, String link) {
         return "<div style=\"font-family:Helvetica,Arial,sans-serif;font-size:16px;margin:0;color:#0b0c0c\">\n" +
                 "\n" +
@@ -167,9 +178,6 @@ public class ClientService implements UserDetailsService {
         return clientRepository.findAll();
     }
 
-    @Override
-    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-        Client client = clientRepository.findByEmail(email).orElseThrow(() -> new UsernameNotFoundException("Sorry, the email has not been found in our database. Do you want to register? "));
-        return client;
-    }
+
+
 }
