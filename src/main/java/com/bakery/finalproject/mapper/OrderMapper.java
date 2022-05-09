@@ -18,17 +18,17 @@ public class OrderMapper implements Mapper<Order, OrderDTO> {
                 .orderId(entity.getOrderId())
                 .orderDate(entity.getOrderDate())
                 .deliveryDate(entity.getDeliveryDate())
+                .orderNumber(entity.getOrderNumber())
                 .build();
     }
 
     @Override
     public Order DTOToEntity(OrderDTO dto) {
-        Order order = orderRepository.findByOrderNumber(dto.getOrderId()).orElse(new Order());
+        Order order = orderRepository.findById(dto.getOrderId()).orElse(new Order());
         order.setOrderDate(dto.getOrderDate());
         order.setDeliveryDate(dto.getDeliveryDate());
         order.setOrderNumber(generateOrderNumber());
         order.setDiscount(0);
-       // order.setShoppingCart(dto.getShoppingCartDTO());
         return order;
     }
 

@@ -9,8 +9,6 @@ import lombok.AllArgsConstructor;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
 
-import java.util.Optional;
-
 @Component
 @AllArgsConstructor
 public class ClientMapper implements Mapper<Client, ClientDTO> {
@@ -31,6 +29,7 @@ public class ClientMapper implements Mapper<Client, ClientDTO> {
                 .city(entity.getCity())
                 .postalCode(entity.getPostalCode())
                 .country(country.name())
+                .role(entity.getRole().name())
                 .build();
     }
 

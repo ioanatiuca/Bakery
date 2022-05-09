@@ -32,6 +32,7 @@ public class Security extends WebSecurityConfigurerAdapter {
                 .antMatchers("/api/bakery/product/**").permitAll()
                 .antMatchers("/api/bakery/home").permitAll()
                 .antMatchers("/api/bakery/client/**").permitAll()
+                .antMatchers("/api/bakery/order/**").permitAll()
                 .anyRequest()
                 .authenticated()
                 .and()
@@ -51,4 +52,5 @@ public class Security extends WebSecurityConfigurerAdapter {
         provider.setPasswordEncoder(bCryptPasswordEncoder);
         return provider;
     }
+
 }

@@ -12,6 +12,7 @@ import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
+import java.util.Random;
 import java.util.UUID;
 
 @Entity
@@ -29,11 +30,13 @@ public class Order {
     private Integer orderNumber; //random, 6 cifre
     private Integer discount;
 //    @Column(nullable = false)
+    @Enumerated(value = EnumType.STRING)
     private OrderStatus orderStatus;
 //    @Column(nullable = false)
     private LocalDate orderDate;
 //    @Column(nullable = false)
     private LocalDate deliveryDate;
+    private Double totalPrice;
     @OneToMany(mappedBy = "order")
     private List<OrderLine> shoppingCart;
     @ManyToOne

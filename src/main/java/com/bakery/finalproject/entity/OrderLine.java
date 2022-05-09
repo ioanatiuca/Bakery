@@ -23,4 +23,8 @@ public class OrderLine {
     @ManyToOne
     @JoinColumn (name="order_id")
     private Order order;
+
+    public Double getTotalPrice() {
+        return totalPrice=quantity*product.getPrice();
+    }
 }

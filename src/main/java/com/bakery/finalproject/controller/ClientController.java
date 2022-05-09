@@ -29,10 +29,6 @@ public class ClientController {
         return clientService.confirmToken(token);
     }
 
-//    @RequestMapping({ "/validateLogin" })
-//    public User validateLogin() {
-//        return new User("Successfully authenticated");
-//    }
 
     @GetMapping("/all")
     public ResponseEntity<List<Client>> getAllClients () {
