@@ -17,6 +17,7 @@ public class ProductMapper implements Mapper<Product, ProductDTO> {
                 .productId(entity.getProductId())
                 .category(entity.getCategory())
                 .name(entity.getName())
+                .photoUrl(entity.getPhotoUrl())
                 .build();
     }
 
@@ -26,6 +27,7 @@ public class ProductMapper implements Mapper<Product, ProductDTO> {
         product.setProductId(dto.getProductId());
         product.setCategory(dto.getCategory());
         product.setName(dto.getName());
+        product.setPhotoUrl(dto.getPhotoUrl());
         return product;
     }
 }

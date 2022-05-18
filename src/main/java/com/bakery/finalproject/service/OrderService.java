@@ -2,6 +2,7 @@ package com.bakery.finalproject.service;
 
 import com.bakery.finalproject.entity.Order;
 import com.bakery.finalproject.entity.OrderLine;
+import com.bakery.finalproject.entity.Product;
 import com.bakery.finalproject.enums.OrderStatus;
 import com.bakery.finalproject.exception.NotFoundException;
 import com.bakery.finalproject.mapper.OrderMapper;
@@ -21,17 +22,17 @@ import java.util.Random;
 @Service
 @AllArgsConstructor
 public class OrderService {
-
     private final OrderRepository orderRepository;
     private final OrderMapper orderMapper;
-    private final OrderLineRepository orderLineRepository;
 
     public Order addNewOrder (OrderDTO orderDTO) {
         Order order = orderMapper.DTOToEntity(orderDTO);
-        order.setOrderStatus(OrderStatus.APPROVED);
         order.setOrderDate(LocalDate.now());
-        Double orderTotalPrice = getOrderTotalPrice(order);
-        order.setTotalPrice(orderTotalPrice);
+//        Double totalPrice=0.0;
+//        for (Product p: order.getShoppingCart()){
+//            totalPrice=totalPrice+p.getPrice();
+//        }
+//        order.setTotalPrice(totalPrice);
         return orderRepository.save(order);
     }
 
@@ -44,15 +45,6 @@ public class OrderService {
                 .orElseThrow(() -> new NotFoundException("An order with this number was not found."));
         foundOrder.setOrderStatus(OrderStatus.CANCELED);
         return orderRepository.save(foundOrder);
-    }
-
-    public Double getOrderTotalPrice (Order order) {
-        List<OrderLine> allOrderLines = orderLineRepository.findAllByOrderId(order.getOrderId());
-        Double totalPrice=0.0;
-        for (OrderLine orderLine: allOrderLines) {
-            totalPrice=totalPrice+orderLine.getTotalPrice();
-        }
-        return totalPrice;
     }
 
 }

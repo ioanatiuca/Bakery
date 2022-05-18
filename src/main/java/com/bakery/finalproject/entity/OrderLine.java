@@ -16,15 +16,9 @@ public class OrderLine {
     @Id
     @GeneratedValue
     private Integer orderLineId;
-    @ManyToOne
-    private Product product;
+
     private Integer quantity;
     private Double totalPrice;
-    @ManyToOne
-    @JoinColumn (name="order_id")
-    private Order order;
 
-    public Double getTotalPrice() {
-        return totalPrice=quantity*product.getPrice();
-    }
+
 }

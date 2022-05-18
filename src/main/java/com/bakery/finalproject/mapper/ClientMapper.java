@@ -46,7 +46,7 @@ public class ClientMapper implements Mapper<Client, ClientDTO> {
         client.setFirstName(dto.getFirstName());
         client.setLastName(dto.getLastName());
         client.setEmail(email);
-        client.setPassword(bCryptPasswordEncoder.encode(dto.getPassword()));
+        client.setPassword(dto.getPassword());
         client.setPhoneNo(dto.getPhoneNo());
         client.setAddress(dto.getAddress());
         client.setCity(dto.getCity());

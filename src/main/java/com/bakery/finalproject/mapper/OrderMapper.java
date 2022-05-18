@@ -1,6 +1,7 @@
 package com.bakery.finalproject.mapper;
 
 import com.bakery.finalproject.entity.Order;
+import com.bakery.finalproject.enums.OrderStatus;
 import com.bakery.finalproject.modelDTO.OrderDTO;
 import com.bakery.finalproject.repository.OrderRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,16 +20,21 @@ public class OrderMapper implements Mapper<Order, OrderDTO> {
                 .orderDate(entity.getOrderDate())
                 .deliveryDate(entity.getDeliveryDate())
                 .orderNumber(entity.getOrderNumber())
+                .orderStatus(entity.getOrderStatus().name())
+                .totalPrice(entity.getTotalPrice())
                 .build();
     }
 
     @Override
     public Order DTOToEntity(OrderDTO dto) {
-        Order order = orderRepository.findById(dto.getOrderId()).orElse(new Order());
+        Order order = orderRepository.findByOrderNumber(dto.getOrderNumber()).orElse(new Order());
+        order.setShoppingCart(dto.getShoppingCartDTO());
         order.setOrderDate(dto.getOrderDate());
         order.setDeliveryDate(dto.getDeliveryDate());
-        order.setOrderNumber(generateOrderNumber());
+        order.setOrderNumber(dto.getOrderNumber());
         order.setDiscount(0);
+        order.setTotalPrice(dto.getTotalPrice());
+        order.setOrderStatus(OrderStatus.valueOf(dto.getOrderStatus().toUpperCase()));
         return order;
     }
 

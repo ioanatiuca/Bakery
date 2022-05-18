@@ -22,15 +22,25 @@ public class Product {
     @ManyToOne
     @JoinColumn(name = "category_id")
     private ProductCategory category;
+
     @Column(nullable = false)
     private Double price;
+
     @Column(nullable = false)
     private String name;
+
+    private String photoUrl;
+
+    @ManyToOne
+    @JoinColumn (name="order_id")
+    private Order order;
+
     @ManyToMany
     @JoinTable (name = "product_ingredient",
     joinColumns = @JoinColumn(name = "product_id"),
     inverseJoinColumns = @JoinColumn(name="ingredient_id"))
     private List<Ingredient> ingredientList;
+
     @OneToOne
     private Recipe recipe;
 }

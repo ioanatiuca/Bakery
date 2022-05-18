@@ -33,21 +33,26 @@ public class ProductController {
         List<ProductCategory> allProductCategories = productService.getAllProductCategories();
         return ResponseEntity.ok(allProductCategories);
     }
-    @GetMapping("/{name}")
-    @ResponseBody
-    public ResponseEntity<Product> getProductByName (@PathVariable("name") String name) {
-        Product product = productService.getProductByName(name);
-        return ResponseEntity.ok(product);
-    }
-    @GetMapping("/category/{name}")
-    @ResponseBody
-    public ResponseEntity<List<Product>> getAllProductsInACategory (@PathVariable("name") String productCategoryDTOname) {
-        List<Product> productList = productService.getAllProductsInACategory(productCategoryDTOname);
+
+    @GetMapping("/category/{id}")
+    public ResponseEntity<List<Product>> getAllProductsInACategory (@PathVariable("id") Integer productCategoryDTOid) {
+        List<Product> productList = productService.getAllProductsInACategory(productCategoryDTOid);
         return ResponseEntity.ok(productList);
     }
 
     @GetMapping(path="/category/image/{fileName}", produces = IMAGE_JPEG_VALUE)
     public byte[] getCategoryImage (@PathVariable("fileName") String fileName) throws IOException {
         return Files.readAllBytes(Paths.get(System.getProperty("user.home")+"/Downloads/Poze_SDA/"+fileName));
+    }
+
+    @GetMapping(path="/image/{fileName}", produces = IMAGE_JPEG_VALUE)
+    public byte[] getProductImage (@PathVariable("fileName") String fileName) throws IOException {
+        return Files.readAllBytes(Paths.get(System.getProperty("user.home")+"/Downloads/Poze_SDA/"+fileName));
+    }
+
+    @GetMapping("/{name}")
+    public ResponseEntity<Product> getProductByName (@PathVariable("name") String name) {
+        Product product = productService.getProductByName(name);
+        return ResponseEntity.ok(product);
     }
 }

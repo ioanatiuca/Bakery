@@ -10,7 +10,6 @@ public class OrderLineMapper implements Mapper<OrderLine, OrderLineDTO>{
     public OrderLineDTO entityToDTO(OrderLine entity) {
         return OrderLineDTO.builder()
                 .orderLineId(entity.getOrderLineId())
-                .product(entity.getProduct())
                 .quantity(entity.getQuantity())
                 .totalPrice(entity.getTotalPrice())
                 .build();
@@ -20,7 +19,6 @@ public class OrderLineMapper implements Mapper<OrderLine, OrderLineDTO>{
     public OrderLine DTOToEntity(OrderLineDTO dto) {
         return OrderLine.builder()
                 .orderLineId(dto.getOrderLineId())
-                .product(dto.getProduct())
                 .quantity(dto.getQuantity())
                 .totalPrice(dto.getTotalPrice())
                 .build();

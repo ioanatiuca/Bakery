@@ -23,22 +23,21 @@ import java.util.UUID;
 @Table(name = "orders")
 public class Order {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "order_id")
     private Integer orderId;
-//    @Column(nullable = false, unique = true)
+    @Column(unique = true)
     private Integer orderNumber; //random, 6 cifre
     private Integer discount;
-//    @Column(nullable = false)
     @Enumerated(value = EnumType.STRING)
     private OrderStatus orderStatus;
-//    @Column(nullable = false)
     private LocalDate orderDate;
-//    @Column(nullable = false)
     private LocalDate deliveryDate;
     private Double totalPrice;
+
     @OneToMany(mappedBy = "order")
-    private List<OrderLine> shoppingCart;
+    private List<Product> shoppingCart;
+
     @ManyToOne
     @JoinColumn (name="client_id")
     private Client client;

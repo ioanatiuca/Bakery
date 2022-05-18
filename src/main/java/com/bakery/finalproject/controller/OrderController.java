@@ -62,10 +62,6 @@ public class OrderController {
     public void deleteOrderLine (OrderLineDTO orderLineDTO) {
         orderLineService.deleteOrderLine(orderLineDTO);
     }
-    @GetMapping("/cart/price")
-    public ResponseEntity<Double> getOrderLineTotalPrice (OrderLineDTO orderLineDTO) {
-        Double orderLineTotalPrice = orderLineService.getOrderLineTotalPrice(orderLineDTO);
-        return ResponseEntity.ok(orderLineTotalPrice);
-    }
+
 
 }

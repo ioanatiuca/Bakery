@@ -167,10 +167,9 @@ public class ClientService implements UserDetailsService {
         return clientRepository.save(clientMapper.DTOToEntity(clientDTO));
     }
 
-    public void deleteClientByEmail (ClientDTO clientDTO) {
-        String email = clientDTO.getEmail();
-        Client client = clientRepository.findByEmail(email)
-                .orElseThrow(() -> new NotFoundException("Sorry, the email you entered is not found in our database. Please try again."));
+    public void deleteClientById (Integer id) {
+        Client client = clientRepository.findById(id)
+                .orElseThrow(() -> new NotFoundException("Client was not found."));
         clientRepository.delete(client);
     }
 

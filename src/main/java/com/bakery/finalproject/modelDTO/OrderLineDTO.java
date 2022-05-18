@@ -13,7 +13,7 @@ import lombok.Setter;
 @Builder
 public class OrderLineDTO {
     private Integer orderLineId;
-    private Product product;
+
     private Integer quantity;
     private Double totalPrice;
 }

@@ -46,11 +46,5 @@ public class OrderLineService {
         orderLineRepository.delete(foundOrderLine);
     }
 
-    public Double getOrderLineTotalPrice (OrderLineDTO orderLineDTO) {
-        if (orderLineDTO.getProduct()==null || orderLineDTO.getQuantity()==null) {
-            return 0.0;
-        }
-        OrderLine orderLine = orderLineMapper.DTOToEntity(orderLineDTO);
-        return orderLine.getTotalPrice();
-    }
+
 }

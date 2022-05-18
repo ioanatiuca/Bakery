@@ -28,19 +28,23 @@ public class Security extends WebSecurityConfigurerAdapter {
         http
                 .csrf().disable().cors().disable()
                 .authorizeRequests()
-                .antMatchers("/api/bakery/client/registration/**").permitAll()
-                .antMatchers("/api/bakery/product/**").permitAll()
-                .antMatchers("/api/bakery/home").permitAll()
-                .antMatchers("/api/bakery/client/**").permitAll()
-                .antMatchers("/api/bakery/order/**").permitAll()
-                .anyRequest()
-                .authenticated()
+                .anyRequest().permitAll()
+//                .antMatchers("/api/bakery/client/registration/**").permitAll()
+//                .antMatchers("/api/bakery/product/**").permitAll()
+//                .antMatchers("/api/bakery/home").permitAll()
+//                .antMatchers("/api/bakery/client/**").permitAll()
+//                .antMatchers("/api/bakery/order/**").permitAll()
+//                .antMatchers("api/bakery/admin/**").permitAll()
+//                .anyRequest()
+//                .authenticated()
                 .and()
                 .httpBasic();
     }
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+//        auth.inMemoryAuthentication()
+//                .withUser("email").password("password").roles("ADMIN", "USER");
         auth.authenticationProvider(daoAuthenticationProvider());
     }
 

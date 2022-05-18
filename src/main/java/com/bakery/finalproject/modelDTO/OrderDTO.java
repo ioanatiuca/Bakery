@@ -1,5 +1,6 @@
 package com.bakery.finalproject.modelDTO;
 
+import com.bakery.finalproject.entity.Product;
 import com.bakery.finalproject.enums.OrderStatus;
 import lombok.*;
 
@@ -17,6 +18,7 @@ public class OrderDTO {
     private Integer orderNumber;
     private LocalDate orderDate;
     private LocalDate deliveryDate;
-    private List<OrderLineDTO> shoppingCartDTO;
-    private ClientDTO clientDTO;
+    private List<Product> shoppingCartDTO;
+    private String orderStatus;
+    private Double totalPrice;
 }
