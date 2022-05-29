@@ -31,9 +31,11 @@ public class Product {
 
     private String photoUrl;
 
-    @ManyToOne
-    @JoinColumn (name="order_id")
-    private Order order;
+    @ManyToMany
+    @JoinTable(name="product_orders",
+    joinColumns = @JoinColumn(name="product_id") ,
+    inverseJoinColumns = @JoinColumn(name="order_id"))
+    private List<Order> orders;
 
     @ManyToMany
     @JoinTable (name = "product_ingredient",

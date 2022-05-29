@@ -42,19 +42,21 @@ public class ClientController {
     @PostMapping("/client/registration/login")
     public UserDetails loginClient (@RequestBody ClientDTO clientDTO) {
         UserDetails foundClient = clientService.loadUserByUsername(clientDTO.getEmail());
-        if (foundClient.getPassword().equals(clientDTO.getPassword())) {
+        if(bCryptPasswordEncoder.matches(clientDTO.getPassword(), foundClient.getPassword())) {
             return foundClient;
         }
         return null;
     }
 
-    @DeleteMapping("/admin/client/{id}")
-    public void deleteClient (@RequestBody @PathVariable("id") Integer id) {
-        clientService.deleteClientById(id);
+    @PostMapping("/admin/client/{id}")
+    public ResponseEntity<Client> updateClient (@RequestBody ClientDTO clientDTO, @PathVariable("id") Integer id) {
+        Client client = clientService.updateClient(clientDTO);
+        return ResponseEntity.ok(client);
     }
-    @PostMapping("/admin/client/{email}")
-    public ResponseEntity<Client> updateClientByEmail (@RequestBody ClientDTO clientDTO, @PathVariable("email") String email) {
-        Client client = clientService.updateClientDetailsByEmail(clientDTO);
+
+    @GetMapping("/client/{email}")
+    public ResponseEntity<Client> findClientByEmail (@PathVariable("email") String email) {
+        Client client = clientService.findByEmail(email);
         return ResponseEntity.ok(client);
     }
 

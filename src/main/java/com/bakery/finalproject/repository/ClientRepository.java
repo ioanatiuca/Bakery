@@ -11,6 +11,7 @@ import java.util.UUID;
 
 @Transactional(readOnly = true)
 public interface ClientRepository extends JpaRepository<Client, Integer>{
+
     @Query("Select c from Client c where c.email = :email")
     Optional<Client> findByEmail(@Param("email") String email);
 

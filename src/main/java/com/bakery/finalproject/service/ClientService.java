@@ -27,22 +27,14 @@ public class ClientService implements UserDetailsService {
 
     private ClientRepository clientRepository;
     private ClientMapper clientMapper;
-    private EmailValidator emailValidator;
     private BCryptPasswordEncoder bCryptPasswordEncoder;
     private ConfirmationTokenService confirmationTokenService;
-    private ConfirmationTokenRepository confirmationTokenRepository;
     private final EmailSender emailSender;
 
     public String saveNewClient (ClientDTO clientDTO) {
-        boolean isEmailValid = emailValidator.test(clientDTO.getEmail());
-        if (!isEmailValid) {
-            throw new IllegalStateException("Email not valid");
-        }
         Client client = clientMapper.DTOToEntity(clientDTO);
         Optional<Client> optionalClient = clientRepository.findByEmail(clientDTO.getEmail());
         if (optionalClient.isPresent()) {
-            //account should exist AND already activated to thorw exception
-            //otherwise send email again
             throw new IllegalStateException("Account with this email already exists.");
         }
         String encodedPassword = bCryptPasswordEncoder.encode(client.getPassword());
@@ -61,12 +53,7 @@ public class ClientService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String email) throws NotFoundException {
-        Client client = clientRepository.findByEmail(email).orElseThrow(() -> new NotFoundException("Sorry, the email has not been found in our database. Please register first. "));
-        return client;
-    }
-
-    public UserDetails loadUserByUsernameAndPassword(String email, String password) throws NotFoundException {
-        Client client = clientRepository.findByEmailAndPassword(email,password).orElseThrow(() -> new NotFoundException("Sorry, the email has not been found in our database. Please register first. "));
+        Client client = clientRepository.findByEmail(email).orElseThrow(() -> new NotFoundException("Email has not been found in our database. Please register first. "));
         return client;
     }
 
@@ -152,7 +139,7 @@ public class ClientService implements UserDetailsService {
         confirmationTokenService.setDateConfirmedAt(token);
 //        confirmationTokenRepository.findClientEmailByToken(token, )
         enableClient(confirmationToken.getClient().getEmail());
-        return "confirmed";
+        return "Account confirmed";
     }
 
     private void enableClient(String email) {
@@ -160,7 +147,7 @@ public class ClientService implements UserDetailsService {
         client.setEnabled(true);
     }
 
-    public Client updateClientDetailsByEmail (ClientDTO clientDTO) {
+    public Client updateClient (ClientDTO clientDTO) {
         String email = clientDTO.getEmail();
         Client client = clientRepository.findByEmail(email)
                 .orElseThrow(() -> new NotFoundException("Sorry, the email you entered is not found in our database. Please try again."));
@@ -178,5 +165,8 @@ public class ClientService implements UserDetailsService {
     }
 
 
-
+    public Client findByEmail(String email) {
+        Client client = clientRepository.findByEmail(email).orElseThrow(()-> new NotFoundException("Email not found."));
+        return client;
+    }
 }

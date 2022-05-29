@@ -21,4 +21,5 @@ public class OrderDTO {
     private List<Product> shoppingCartDTO;
     private String orderStatus;
     private Double totalPrice;
+    private ClientDTO clientDTO;
 }

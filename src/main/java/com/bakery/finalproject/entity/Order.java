@@ -35,7 +35,7 @@ public class Order {
     private LocalDate deliveryDate;
     private Double totalPrice;
 
-    @OneToMany(mappedBy = "order")
+    @ManyToMany(mappedBy = "orders")
     private List<Product> shoppingCart;
 
     @ManyToOne
